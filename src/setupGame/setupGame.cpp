@@ -18,7 +18,7 @@ class gameData gameData;
 // Prints the starting interface
 void printStart() {
   cout << "\033[2J\n";
-  cout << "|--------------------------------------------------|\n";
+  cout << "----------------------------------------------------\n";
   cout << "|        Welcome to C++ Chess in terminal!         |\n";
   cout << "|--------------------------------------------------|\n";
   cout << "|    Play normal game    |    View Previous Games  |\n";
@@ -28,7 +28,7 @@ void printStart() {
   cout << "|     View Stats         |           Quit          |\n";
   cout << "|        Enter 'S'       |         Enter 'Q'       |\n";
   cout << "|   Not yet implemented  |                         |\n";
-  cout << "|--------------------------------------------------|\n";
+  cout << "----------------------------------------------------\n";
 }
 
 // Waits for the user to select a valid gameMode
