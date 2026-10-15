@@ -15,6 +15,7 @@ using namespace this_thread;
 
 class gameData gameData;
 
+// Prints the starting interface
 void printStart() {
   cout << "\033[2J\n";
   cout << "|--------------------------------------------------|\n";
@@ -30,7 +31,10 @@ void printStart() {
   cout << "|--------------------------------------------------|\n";
 }
 
-void gameSetup() {
+// Waits for the user to select a valid gameMode
+// upon successfully entering a gamemode it set the
+// gamemode in game data
+void gameModeSelect() {
   bool valid = false;
   printStart();
   do {
@@ -66,6 +70,7 @@ void gameSetup() {
   } while (!valid);
 }
 
+// Starts the game in its intended mode
 void gameStart() {
   switch (gameData.gameMode) {
     case NORMAL:

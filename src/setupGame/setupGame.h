@@ -1,3 +1,3 @@
-void gameSetup();
+void gameModeSelect();
 void printStart();
 void gameStart();

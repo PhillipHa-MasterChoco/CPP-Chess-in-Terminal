@@ -11,7 +11,7 @@
 
 
 int main() {
-  gameSetup();
+  gameModeSelect();
   gameStart();
   gameEnd();
 
