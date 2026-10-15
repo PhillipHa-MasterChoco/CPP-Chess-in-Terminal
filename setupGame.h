@@ -27,7 +27,7 @@ public:
 
 class gameData {
   public:
-    enum GameMode gameMode = NO_GAME_MODE;
+    enum GameMode gameMode;
     class gridTile board[MAX_ROWS][MAX_COLUMNS];
 };
 
@@ -35,7 +35,8 @@ class gameData {
 // ======================================
 // =========== Iteration 0 ==============
 // ======================================
-void modeSetup();
+void gameSetup();
 void printStart();
 void printEnd();
 void gameEnd();
+void gameStart();
