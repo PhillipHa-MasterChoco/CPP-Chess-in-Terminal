@@ -14,6 +14,12 @@ enum Pieces
   NONE
 };
 
+enum Colour {
+  WHITE,
+  BLACK,
+  EMPTY
+};
+
 enum GameMode
 {
   NORMAL,
@@ -26,6 +32,7 @@ class gridTile
 {
 public:
   enum Pieces piece;
+  enum Colour colour;
   bool threatened;
 };
 
@@ -33,6 +40,7 @@ class gameData
 {
 public:
   enum GameMode gameMode;
+  enum Colour currentTurn;
   class gridTile board[ROWS][COLS];
 };
 
