@@ -44,8 +44,6 @@ void gameModeSelect() {
       case 'P':
         valid = true;
         gameData.gameMode = NORMAL;
-        cout << "Feature not yet implemented\n" << flush;
-        sleep_for(seconds(1));
         break;
       case 'R':
         cout << "Feature not yet implemented\n" << flush;
