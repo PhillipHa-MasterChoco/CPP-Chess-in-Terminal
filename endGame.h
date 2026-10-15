@@ -1,2 +1,0 @@
-void printEnd();
-void gameEnd();
