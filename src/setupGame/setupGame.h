@@ -1,3 +1,24 @@
+const int BLACK_KING_ROW = 8;
+const int BLACK_PAWN_ROW = 7; 
+const int WHITE_KING_ROW = 1;
+const int WHITE_PAWN_ROW = 2;
+const int ROOK_LEFT_COL = 1;
+const int ROOK_RIGHT_COL = 8;
+const int KNIGHT_LEFT_COL = 2;
+const int KNIGHT_RIGHT_COL = 7;
+const int BISHOP_LEFT_COL = 3;
+const int BISHOP_RIGHT_COL = 6;
+const int QUEEN_COL = 4;
+const int KING_COL = 5;
+
 void gameModeSelect();
 void printStart();
 void gameStart();
+void setupBoard();
+void placePieces();
+void placePawns();
+void placeBishops();
+void placeKnights();
+void placeRooks();
+void placeQueens();
+void placeKings();

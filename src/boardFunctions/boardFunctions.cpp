@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const int letterCaseOffset = 32;
+
 void printBoardLine() {
   cout << "+";
   for (int col = 0; col < COLS; col++) {
@@ -14,20 +16,11 @@ void printBoardLine() {
   cout << "\n";
 }
 
+// Prints the entire game board
 void printGameBoard() {
   printHeader();
   printBoardLine();
-  int yCoord = 8;
-
-  for (int row = 0; row < ROWS; row++) {
-    for (int col = 0; col < COLS; col++) {
-      cout << "|";
-      cout << "   ";
-    }
-    cout << "| " << yCoord <<endl;
-    yCoord--;
-    printBoardLine();
-  }
+  printGrid();
   printFooter();
 }
 
@@ -40,6 +33,7 @@ void printHeaderLine() {
 }
 
 void printHeader() {
+  cout << "\033[2J\n";
   printHeaderLine();
   cout << "|     CPP Chess In Terminal     |\n";
   printHeaderLine();
@@ -48,6 +42,20 @@ void printHeader() {
   printHeaderLine();
   cout << "| Curr Turn : " << currentTurnToString() << "             |\n";
   printHeaderLine();
+}
+
+void printGrid() {
+  int yCoord = 8;
+
+  for (int row = 0; row < ROWS; row++) {
+    for (int col = 0; col < COLS; col++) {
+      cout << "|";
+      cout << " " << getPieceOnTile(row,col) << " ";
+    }
+    cout << "| " << yCoord <<endl;
+    yCoord--;
+    printBoardLine();
+  }
 }
 
 void printFooter() {
@@ -74,4 +82,36 @@ string currentTurnToString() {
   }
 
   return currentTurn;
+}
+
+char getPieceOnTile(int row, int col) {
+  char piece;
+  switch (gameData.board[row][col].piece) {
+    case PAWN:
+      piece = 'p';
+      break;
+    case BISHOP:
+      piece = 'b';
+      break;
+    case KNIGHT:
+      piece = 'k';
+      break;
+    case ROOK:
+      piece = 'r';
+      break;
+    case QUEEN:
+      piece = 'q';
+      break;
+    case KING:
+      piece = 'k';
+      break;
+    default:
+      return ' ';
+  }
+
+  if (gameData.board[row][col].colour == BLACK) {
+    piece -= letterCaseOffset;
+  }
+
+  return piece;
 }

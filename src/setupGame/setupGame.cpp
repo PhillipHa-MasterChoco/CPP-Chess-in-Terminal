@@ -72,6 +72,7 @@ void gameModeSelect() {
 void gameStart() {
   switch (gameData.gameMode) {
     case NORMAL:
+      setupBoard();
       runGameNormal();
       break;
     case REPLAY:
@@ -84,3 +85,85 @@ void gameStart() {
   }
 }
 
+// Sets up the chess board
+void setupBoard() {
+  initBoard();
+  placePieces();
+}
+
+void placePieces() {
+  placePawns();
+  placeBishops();
+  placeKnights();
+  placeRooks();
+  placeQueens();
+  placeKings();
+}
+
+void placePawns() {
+  for (int col = 0; col < COLS; col++) {
+    gameData.board[BLACK_PAWN_ROW][col].piece = PAWN;
+    gameData.board[BLACK_PAWN_ROW][col].colour = BLACK;
+
+    gameData.board[WHITE_PAWN_ROW][col].piece = PAWN;
+    gameData.board[WHITE_PAWN_ROW][col].colour = WHITE;
+  }
+}
+
+void placeBishops() {
+  gameData.board[WHITE_KING_ROW][BISHOP_LEFT_COL].piece = BISHOP;
+  gameData.board[WHITE_KING_ROW][BISHOP_LEFT_COL].colour = WHITE;
+
+  gameData.board[WHITE_KING_ROW][BISHOP_RIGHT_COL].piece = BISHOP;
+  gameData.board[WHITE_KING_ROW][BISHOP_RIGHT_COL].colour = WHITE;
+
+  gameData.board[BLACK_KING_ROW][BISHOP_LEFT_COL].piece = BISHOP;
+  gameData.board[BLACK_KING_ROW][BISHOP_LEFT_COL].colour = BLACK;
+
+  gameData.board[BLACK_KING_ROW][BISHOP_RIGHT_COL].piece = BISHOP;
+  gameData.board[BLACK_KING_ROW][BISHOP_RIGHT_COL].colour = BLACK;
+}
+
+void placeKnights() {
+  gameData.board[WHITE_KING_ROW][KNIGHT_LEFT_COL].piece = KNIGHT;
+  gameData.board[WHITE_KING_ROW][KNIGHT_LEFT_COL].colour = WHITE;
+
+  gameData.board[WHITE_KING_ROW][KNIGHT_RIGHT_COL].piece = KNIGHT;
+  gameData.board[WHITE_KING_ROW][KNIGHT_RIGHT_COL].colour = WHITE;
+
+  gameData.board[BLACK_KING_ROW][KNIGHT_LEFT_COL].piece = KNIGHT;
+  gameData.board[BLACK_KING_ROW][KNIGHT_LEFT_COL].colour = BLACK;
+
+  gameData.board[BLACK_KING_ROW][KNIGHT_RIGHT_COL].piece = KNIGHT;
+  gameData.board[BLACK_KING_ROW][KNIGHT_RIGHT_COL].colour = BLACK;
+}
+
+void placeRooks() {
+  gameData.board[WHITE_KING_ROW][ROOK_LEFT_COL].piece = ROOK;
+  gameData.board[WHITE_KING_ROW][ROOK_LEFT_COL].colour = WHITE;
+
+  gameData.board[WHITE_KING_ROW][ROOK_RIGHT_COL].piece = ROOK;
+  gameData.board[WHITE_KING_ROW][ROOK_RIGHT_COL].colour = WHITE;
+
+  gameData.board[BLACK_KING_ROW][ROOK_LEFT_COL].piece = ROOK;
+  gameData.board[BLACK_KING_ROW][ROOK_LEFT_COL].colour = BLACK;
+
+  gameData.board[BLACK_KING_ROW][ROOK_RIGHT_COL].piece = ROOK;
+  gameData.board[BLACK_KING_ROW][ROOK_RIGHT_COL].colour = BLACK;
+}
+
+void placeQueens() {
+  gameData.board[WHITE_KING_ROW][QUEEN_COL].piece = QUEEN;
+  gameData.board[WHITE_KING_ROW][QUEEN_COL].colour = WHITE;
+
+  gameData.board[BLACK_KING_ROW][QUEEN_COL].piece = QUEEN;
+  gameData.board[BLACK_KING_ROW][QUEEN_COL].colour = BLACK;
+}
+
+void placeKings() {
+  gameData.board[WHITE_KING_ROW][KING_COL].piece = KING;
+  gameData.board[WHITE_KING_ROW][KING_COL].colour = WHITE;
+
+  gameData.board[BLACK_KING_ROW][KING_COL].piece = KING;
+  gameData.board[BLACK_KING_ROW][KING_COL].colour = BLACK;
+}
