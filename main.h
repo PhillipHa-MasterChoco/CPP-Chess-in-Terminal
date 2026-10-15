@@ -3,8 +3,7 @@ const int MAX_COLUMNS = 8;
 
 extern class gameData gameData;
 
-enum Pieces
-{
+enum Pieces {
   PAWN,
   BISHOP,
   KNIGHT,
@@ -13,14 +12,14 @@ enum Pieces
   KING
 };
 
-enum GameMode
-{
+enum GameMode {
   NORMAL,
   REPLAY,
-  STATS
+  STATS,
+  NO_GAME_MODE
 };
-class gridTile
-{
+
+class gridTile {
 public:
   enum Pieces piece;
   bool threatened;
@@ -28,7 +27,7 @@ public:
 
 class gameData {
   public:
-    enum GameMode gameMode;
+    enum GameMode gameMode = NO_GAME_MODE;
     class gridTile board[MAX_ROWS][MAX_COLUMNS];
 };
 
@@ -38,4 +37,5 @@ class gameData {
 // ======================================
 void modeSetup();
 void printStart();
-void printStartModified();
+void printEnd();
+void gameEnd();

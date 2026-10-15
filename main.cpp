@@ -4,16 +4,35 @@
 #include <chrono>
 
 #include "main.h"
+#include "normalGame.h"
+#include "replayGame.h"
+#include "statsGame.h"
 
 using namespace std;
 using namespace chrono;
 using namespace this_thread;
 
-int main()
-{
+int main() {
   modeSetup();
+  gameStart();
+  gameEnd();
 
   return 0;
+}
+
+void printStart() {
+  cout << "\033[2J\n";
+  cout << "|--------------------------------------------------|\n";
+  cout << "|        Welcome to C++ Chess in terminal!         |\n";
+  cout << "|--------------------------------------------------|\n";
+  cout << "|    Play normal game    |    View Previous Games  |\n";
+  cout << "|        Enter 'P'       |         Enter 'R'       |\n";
+  cout << "|                        |   Not yet implemented   |\n";
+  cout << "|------------------------|------------------------ |\n";
+  cout << "|     View Stats         |           Quit          |\n";
+  cout << "|        Enter 'S'       |         Enter 'Q'       |\n";
+  cout << "|   Not yet implemented  |                         |\n";
+  cout << "|--------------------------------------------------|\n";
 }
 
 void modeSetup() {
@@ -25,13 +44,13 @@ void modeSetup() {
     switch (input) {
       case 'P':
         valid = true;
-        gameData.gameMode = NORMAL;
+        GameMode gameData.gameMode = GameMode::NORMAL;
         cout << "Feature not yet implemented\n" << flush;
         sleep_for(seconds(1));
         break;
       case 'R':
         cout << "Feature not yet implemented\n" << flush;
-        gameData.gameMode = REPLAY;
+        GameMode gameData.gameMode = REPLAY;
         sleep_for(seconds(1));
         break;
       case 'S':
@@ -49,18 +68,31 @@ void modeSetup() {
   } while (!valid);
 }
 
-void printStart() {
+void gameStart() {
+  switch (gameData.gameMode) {
+    case NORMAL:
+      runGameNormal();
+      break;
+    case REPLAY:
+      runGameReplay();
+      break;
+    case STATS:
+      runGameStats();
+    default:
+      cout << "Error no game mode\n" << flush;
+  }
+}
+
+void printEnd() {
   cout << "\033[2J\n";
   cout << "|--------------------------------------------------|\n";
-  cout << "|        Welcome to C++ Chess in terminal!         |\n";
+  cout << "|                  Thanks for playing!             |\n";
   cout << "|--------------------------------------------------|\n";
-  cout << "|    Play normal game    |    View Previous Games  |\n";
-  cout << "|        Enter 'P'       |         Enter 'R'       |\n";
-  cout << "|                        |   Not yet implemented   |\n";
-  cout << "|------------------------|------------------------ |\n";
-  cout << "|     View Stats         |           Quit          |\n";
-  cout << "|        Enter 'S'       |         Enter 'Q'       |\n";
-  cout << "|   Not yet implemented  |                         |\n";
-  cout << "|--------------------------------------------------|\n";
+}
+
+void gameEnd() {
+  // This function will later be used to store data once the game has ended
+  // for now it will just call printEnd
+  printEnd();
 }
 
