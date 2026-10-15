@@ -1,5 +1,5 @@
-const int MAX_ROWS = 8;
-const int MAX_COLUMNS = 8;
+const int ROWS = 8;
+const int COLS = 8;
 
 extern class gameData gameData;
 
@@ -10,7 +10,8 @@ enum Pieces
   KNIGHT,
   ROOK,
   QUEEN,
-  KING
+  KING,
+  EMPTY
 };
 
 enum GameMode
@@ -32,5 +33,5 @@ class gameData
 {
 public:
   enum GameMode gameMode;
-  class gridTile board[MAX_ROWS][MAX_COLUMNS];
+  class gridTile board[ROWS][COLS];
 };

@@ -3,7 +3,7 @@
 #include <thread>
 #include <chrono>
 
-#include "../gameData.h"
+#include "../gameData/gameData.h"
 #include "setupGame.h"
 #include "../normalGame/normalGame.h"
 #include "../replayGame/replayGame.h"
