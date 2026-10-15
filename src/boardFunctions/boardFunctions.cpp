@@ -45,7 +45,7 @@ void printHeader() {
 }
 
 void printGrid() {
-  int yCoord = 8;
+  int yCoord = 1;
 
   for (int row = 0; row < ROWS; row++) {
     for (int col = 0; col < COLS; col++) {
@@ -53,7 +53,7 @@ void printGrid() {
       cout << " " << getPieceOnTile(row,col) << " ";
     }
     cout << "| " << yCoord <<endl;
-    yCoord--;
+    yCoord++;
     printBoardLine();
   }
 }
