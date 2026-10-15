@@ -1,5 +1,8 @@
+#include <iostream>
+
 #include "gameData.h"
 
+using namespace std;
 // Initialises the board to empty values
 void initBoard() {
   for (int row = 0; row < ROWS; row++) {
