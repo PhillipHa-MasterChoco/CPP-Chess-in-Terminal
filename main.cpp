@@ -11,12 +11,12 @@ using namespace this_thread;
 
 int main()
 {
-  gameSetup();
+  modeSetup();
 
   return 0;
 }
 
-void gameSetup() {
+void modeSetup() {
   bool valid = false;
   printStart();
   do {

@@ -36,6 +36,6 @@ class gameData {
 // ======================================
 // =========== Iteration 0 ==============
 // ======================================
-void gameSetup();
+void modeSetup();
 void printStart();
 void printStartModified();
