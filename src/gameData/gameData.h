@@ -11,7 +11,7 @@ enum Pieces
   ROOK,
   QUEEN,
   KING,
-  EMPTY
+  NONE
 };
 
 enum GameMode
@@ -35,3 +35,5 @@ public:
   enum GameMode gameMode;
   class gridTile board[ROWS][COLS];
 };
+
+void initBoard();
