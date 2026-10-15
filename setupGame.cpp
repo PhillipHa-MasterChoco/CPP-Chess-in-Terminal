@@ -3,6 +3,7 @@
 #include <thread>
 #include <chrono>
 
+#include "gameData.h"
 #include "setupGame.h"
 #include "normalGame.h"
 #include "replayGame.h"
@@ -11,6 +12,8 @@
 using namespace std;
 using namespace chrono;
 using namespace this_thread;
+
+class gameData gameData;
 
 void printStart() {
   cout << "\033[2J\n";

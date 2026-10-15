@@ -1,3 +1,7 @@
+#include <iostream>
+
+using namespace std;
+
 void printEnd()
 {
     cout << "\033[2J\n";

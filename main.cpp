@@ -7,7 +7,7 @@
 #include "normalGame.h"
 #include "replayGame.h"
 #include "statsGame.h"
-
+#include "endGame.h"
 
 
 int main() {
