@@ -25,12 +25,13 @@ void modeSetup() {
     switch (input) {
       case 'P':
         valid = true;
-        // startNormalGame
+        gameData.gameMode = NORMAL;
         cout << "Feature not yet implemented\n" << flush;
         sleep_for(seconds(1));
         break;
-      case 'G':
+      case 'R':
         cout << "Feature not yet implemented\n" << flush;
+        gameData.gameMode = REPLAY;
         sleep_for(seconds(1));
         break;
       case 'S':
@@ -54,7 +55,7 @@ void printStart() {
   cout << "|        Welcome to C++ Chess in terminal!         |\n";
   cout << "|--------------------------------------------------|\n";
   cout << "|    Play normal game    |    View Previous Games  |\n";
-  cout << "|        Enter 'P'       |         Enter 'G'       |\n";
+  cout << "|        Enter 'P'       |         Enter 'R'       |\n";
   cout << "|                        |   Not yet implemented   |\n";
   cout << "|------------------------|------------------------ |\n";
   cout << "|     View Stats         |           Quit          |\n";
