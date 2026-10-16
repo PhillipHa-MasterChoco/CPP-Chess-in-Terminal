@@ -19,8 +19,12 @@ void initBoard() {
 void initSideBar() {
   class sideBarPage *newPage = newSideBarPage();
   sideBar.currentPage = newPage;
-  appendToSideBar("Hello this is a test!");
-  printCurrentSideBarContent();
+
+  for (int i = 0; i < 40; i++ ) {
+    appendToSideBar("Hello this is a test!");
+  }
+
+  // printCurrentSideBarContent();
 }
 
 class sideBarPage *newSideBarPage() {
@@ -50,10 +54,10 @@ void initialiseSideBarPage(class sideBarPage *page) {
 
 void turnSideBarPage(char direction) {
   switch (direction) {
-    case 'l':
+    case 'L':
       doTurnSideBarPage(-1);
       break;
-    case 'r':
+    case 'R':
       doTurnSideBarPage(1);
     default:
       return;
@@ -84,26 +88,42 @@ void doTurnSideBarPage(int offset) {
 
 void appendToSideBar(string input) {
   int strIndex = 0;
-  cout << "String size is " << input.size() << endl;
+  // cout << "String size is " << input.size() << endl;
   class sideBarPage *page = sideBar.lastPage;
 
+  
   if (!page) return;
+  cout << "Page number is " << page->pageNumber << endl;
+  
+  if (page->capacity >= page->maxCapacity) {
+    cout << "Ran out of capacity, creating new page" << endl;
+    page = newSideBarPage();
+  }
 
-  for (int row = 0; row < PAGE_ROWS; row++) {
-    for (int col = 0; col < PAGE_WIDTH; col++) {
-      if (page->capacity > page->maxCapacity) {
-        page = newSideBarPage();
-      }
+  cout << "Capacity is " << page->capacity << endl;
+  int colStart = page->capacity % PAGE_WIDTH;
+  int rowStart = (page->capacity - colStart)/PAGE_WIDTH;
 
+  cout << "colStart rowStart is: " << colStart << ", " << rowStart << endl;
+  for (int row = rowStart, col = colStart; row < PAGE_ROWS; row++) {
+    for (int colLoop = col; colLoop < PAGE_WIDTH; colLoop++) {
       if (strIndex >= input.size()) return;
-
-      cout << "Current string index is " << strIndex << endl;
-      page->content[row][col] = input[strIndex];
+      // cout << "Current string index is " << strIndex << endl;
+      page->content[row][colLoop] = input[strIndex];
       strIndex++;
       ++page->capacity;
-
     }
+    
+    col = 0;
   }
+  
+  // If string hasn't finished printing, 
+  // recursive call to finish off string
+  if (strIndex < input.size()) {
+    appendToSideBar(input.substr(strIndex));
+  }
+
+  cout << "Returned printing successfully\n";
 }
 
 // Used for debugging

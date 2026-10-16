@@ -18,7 +18,9 @@ void runGameNormal() {
 }
 
 void gameLoop() {
-  selectPiece();
+  while (1) {
+    selectPiece();
+  }
 }
 
 void selectPiece() {
@@ -28,8 +30,13 @@ void selectPiece() {
     char column;
     int row;
     if(!(cin >> column)) exit(1);
-    if(!(cin >> row)) exit(1);
     
+    if (column == 'R' || column == 'L') {
+      turnSideBarPage(column);
+      return;
+    }
+    
+    if(!(cin >> row)) exit(1);
     valid = isValidSelection(column, row);
     
     if (!valid) {
