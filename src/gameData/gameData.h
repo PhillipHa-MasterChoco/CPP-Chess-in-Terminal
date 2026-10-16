@@ -1,5 +1,7 @@
 const int ROWS = 8;
 const int COLS = 8;
+const int PAGE_ROWS = 8;
+const int PAGE_WIDTH = 8;
 
 extern class gameData gameData;
 
@@ -28,6 +30,18 @@ enum GameMode
   NO_GAME_MODE
 };
 
+class sideBarPage {
+  public:
+    char content[PAGE_ROWS][PAGE_WIDTH];
+    class sideBarPage *next;
+    class sideBarPage *prev;
+}
+
+class sideBar {
+  public:
+    class sideBarPage *currentPage;
+}
+
 class gridTile
 {
 public:
@@ -35,6 +49,12 @@ public:
   enum Colour colour;
   bool threatened;
 };
+
+class userOut {
+  public:
+    bool needed = false;
+    string output;
+}
 
 class gameData
 {
