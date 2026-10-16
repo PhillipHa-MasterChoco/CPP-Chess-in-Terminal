@@ -3,8 +3,8 @@
 
 const int ROWS = 8;
 const int COLS = 8;
-const int PAGE_ROWS = 8;
-const int PAGE_WIDTH = 30;
+const int PAGE_ROWS = 15;
+const int PAGE_WIDTH = 31;
 
 extern class gameData gameData;
 extern class sideBar sideBar;

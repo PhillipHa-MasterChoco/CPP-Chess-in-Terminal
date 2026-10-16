@@ -19,7 +19,6 @@ void printBoardLine() {
 // Prints the entire game board
 void printGameBoard() {
   printHeader();
-  printBoardLine();
   printGrid();
   printFooter();
 }
@@ -34,31 +33,60 @@ void printHeaderLine() {
 
 void printHeader() {
   cout << "\033[2J\n";
+  printSideBarRowPadding();
   printHeaderLine();
+
+  printSideBarRowPadding();
   cout << "|     CPP Chess In Terminal     |\n";
+
+  printSideBarRowPadding();
   printHeaderLine();
+
+  printSideBarRowPadding();
   cout << "| Lowercase = White             |\n";
+
+  printSideBarRowPadding();
   cout << "| Uppercase = Black             |\n";
+
+  printSideBarRowPadding();
   printHeaderLine();
+
+  printSideBarRowPadding();
   cout << "| Curr Turn : " << currentTurnToString() << "             |\n";
+
+  printSideBarRowPadding();
   printHeaderLine();
 }
 
 void printGrid() {
   int yCoord = 1;
+  int sideBarRow = 0;
+
+  printSideBarBorderLine();
+  printBoardLine();
 
   for (int row = 0; row < ROWS; row++) {
+    printCurrentSideBarRow(sideBarRow);
+    sideBarRow++;
+
     for (int col = 0; col < COLS; col++) {
       cout << "|";
       cout << " " << getPieceOnTile(row,col) << " ";
     }
+
     cout << "| " << yCoord <<endl;
     yCoord++;
+    
+    printCurrentSideBarRow(sideBarRow);
+    sideBarRow++;
+
     printBoardLine();
   }
+  
 }
 
 void printFooter() {
+  printSideBarRowPadding();
   char xCoord = 'A';
   cout << "  ";
   for (int col = 0; col < COLS; col++, xCoord++) {
@@ -114,4 +142,29 @@ char getPieceOnTile(int row, int col) {
   }
 
   return piece;
+}
+
+void printSideBarBorderLine() {
+  cout << "+";
+  for (int col = 0; col < PAGE_WIDTH; col++) {
+    cout << "=";
+  }
+}
+
+void printSideBarRowPadding() {
+  for (int col = 0; col < PAGE_WIDTH + 1; col++) {
+    cout << " ";
+  }
+}
+
+void printCurrentSideBarRow(int row) {
+  if (row < 0 || row >= PAGE_ROWS) {
+    printSideBarBorderLine();
+    return;
+  }
+
+  cout << "|";
+  for (int col = 0; col < PAGE_WIDTH; col++) {
+    cout << sideBar.currentPage->content[row][col];
+  }
 }
