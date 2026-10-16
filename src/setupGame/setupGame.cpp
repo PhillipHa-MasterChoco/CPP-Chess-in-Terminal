@@ -14,6 +14,7 @@ using namespace chrono;
 using namespace this_thread;
 
 class gameData gameData;
+class sideBar sideBar;
 
 // Prints the starting interface
 void printStart() {
@@ -89,6 +90,7 @@ void gameStart() {
 void setupBoard() {
   initBoard();
   placePieces();
+  initSideBar();
 }
 
 void placePieces() {
@@ -167,3 +169,4 @@ void placeKings() {
   gameData.board[BLACK_KING_ROW][KING_COL].piece = KING;
   gameData.board[BLACK_KING_ROW][KING_COL].colour = BLACK;
 }
+

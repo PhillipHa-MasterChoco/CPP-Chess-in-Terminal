@@ -1,9 +1,15 @@
+#include <iostream>
+#include <string>
+
 const int ROWS = 8;
 const int COLS = 8;
 const int PAGE_ROWS = 8;
-const int PAGE_WIDTH = 8;
+const int PAGE_WIDTH = 30;
 
 extern class gameData gameData;
+extern class sideBar sideBar;
+
+using namespace std;
 
 enum Pieces
 {
@@ -32,15 +38,20 @@ enum GameMode
 
 class sideBarPage {
   public:
+    int pageNumber;
+    int capacity = 0;
+    int maxCapacity = PAGE_ROWS * PAGE_WIDTH;
     char content[PAGE_ROWS][PAGE_WIDTH];
-    class sideBarPage *next;
-    class sideBarPage *prev;
-}
+    class sideBarPage *next = nullptr;
+    class sideBarPage *prev = nullptr;
+};
 
 class sideBar {
   public:
-    class sideBarPage *currentPage;
-}
+    int numberOfPages;
+    class sideBarPage *currentPage = nullptr;
+    class sideBarPage *lastPage = nullptr;
+};
 
 class gridTile
 {
@@ -54,7 +65,7 @@ class userOut {
   public:
     bool needed = false;
     string output;
-}
+};
 
 class gameData
 {
@@ -65,3 +76,12 @@ public:
 };
 
 void initBoard();
+void initSideBar();
+class sideBarPage *newSideBarPage();
+void turnSideBarPage(char direction);
+void doTurnSideBarPage(int offset);
+void initialiseSideBarPage(class sideBarPage *page);
+void turnSideBarPage(char direction);
+void doTurnSideBarPage(int offset);
+void appendToSideBar(string input);
+void printCurrentSideBarContent();
