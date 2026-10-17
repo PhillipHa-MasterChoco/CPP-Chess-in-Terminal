@@ -52,8 +52,8 @@ void printHeader() {
   printHeaderLine();
 
   printSideBarRowPadding();
-  cout << "| Curr Turn : " << currentTurnToString() << "             |" 
-    << sideBar.currentPage->pageNumber << endl;
+  cout << "| Curr Turn : " << currentTurnToString() << "    Page no. | " 
+    << sideBar.currentPageIndex + 1 << endl;
 
   printSideBarRowPadding();
   printHeaderLine();
@@ -166,6 +166,6 @@ void printCurrentSideBarRow(int row) {
 
   cout << "|";
   for (int col = 0; col < PAGE_WIDTH; col++) {
-    cout << sideBar.currentPage->content[row][col];
+    cout << sideBar.pages[sideBar.currentPageIndex].content[row][col];
   }
 }

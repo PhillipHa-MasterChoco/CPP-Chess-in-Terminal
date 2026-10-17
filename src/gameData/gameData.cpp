@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "gameData.h"
 
 using namespace std;
+
 // Initialises the board to empty values
 void initBoard() {
   gameData.currentTurn = WHITE;
@@ -17,34 +19,28 @@ void initBoard() {
 }
 
 void initSideBar() {
-  class sideBarPage *newPage = newSideBarPage();
-  sideBar.currentPage = newPage;
+  sideBar.currentPageIndex = newSideBarPage();
 
   for (int i = 0; i < 40; i++ ) {
+    cout << "Attempting to add\n";
     appendToSideBar("Hello this is a test!");
   }
 
   // printCurrentSideBarContent();
 }
 
-class sideBarPage *newSideBarPage() {
-  class sideBarPage *newPage = new sideBarPage;
-  newPage->pageNumber = sideBar.numberOfPages + 1;
-  ++sideBar.numberOfPages;
-  initialiseSideBarPage(newPage);
-  
-  class sideBarPage *lastPage = sideBar.lastPage;
-  if (lastPage) {
-    lastPage->next = newPage;
-    newPage->prev = lastPage;
-  } 
-  
-  sideBar.lastPage = newPage;
+// Creates a new sideBarPage and points to its index
+// in the sideBar.sideBarPages vector
+int newSideBarPage() {
+  sideBarPage newPage;
+  newPage.pageIndex = sideBar.pages.size(); 
+  initialiseSideBarPageContent(&newPage);
+  sideBar.pages.push_back(newPage);
 
-  return newPage;
+  return newPage.pageIndex;
 }
 
-void initialiseSideBarPage(class sideBarPage *page) {
+void initialiseSideBarPageContent(class sideBarPage *page) {
   for (int row = 0; row < PAGE_ROWS; row++) {
     for (int col = 0; col < PAGE_WIDTH; col++) {
       page->content[row][col] = ' ';
@@ -67,48 +63,39 @@ void turnSideBarPage(char direction) {
 void doTurnSideBarPage(int offset) {
   if (offset == 0) return;
 
-  class sideBarPage *currentPage = sideBar.currentPage;
-  int targetPageNumber = currentPage->pageNumber + offset;
-  if (targetPageNumber > sideBar.numberOfPages || targetPageNumber <= 0) {
+  int targetPageNumber = sideBar.currentPageIndex + offset;
+  if (targetPageNumber >= sideBar.pages.size() 
+    || targetPageNumber < 0) {
     return;
   }
 
-  class sideBarPage *nextPage;
-
-  if (offset < 0) {
-    nextPage = currentPage->prev;
-  }
-
-  if (offset > 0) {
-    nextPage = currentPage->next;
-  }
-
-  sideBar.currentPage = nextPage;
+  sideBar.currentPageIndex = targetPageNumber;
 }
 
 void appendToSideBar(string input) {
   int strIndex = 0;
-  // cout << "String size is " << input.size() << endl;
-  class sideBarPage *page = sideBar.lastPage;
 
-  
-  if (!page) return;
-  cout << "Page number is " << page->pageNumber << endl;
-  
+  if (sideBar.pages.size() < 1) {
+    newSideBarPage();
+    appendToSideBar(input);
+    return;
+  }
+  // cout << "String size is " << input.size() << endl;
+  sideBarPage *page = &sideBar.pages.back();
+
   if (page->capacity >= page->maxCapacity) {
-    cout << "Ran out of capacity, creating new page" << endl;
-    page = newSideBarPage();
+    newSideBarPage();
+    appendToSideBar(input);
+    return;
   }
 
-  cout << "Capacity is " << page->capacity << endl;
   int colStart = page->capacity % PAGE_WIDTH;
   int rowStart = (page->capacity - colStart)/PAGE_WIDTH;
 
-  cout << "colStart rowStart is: " << colStart << ", " << rowStart << endl;
+  // For loop loops to the end of the page and then ends
   for (int row = rowStart, col = colStart; row < PAGE_ROWS; row++) {
     for (int colLoop = col; colLoop < PAGE_WIDTH; colLoop++) {
       if (strIndex >= input.size()) return;
-      // cout << "Current string index is " << strIndex << endl;
       page->content[row][colLoop] = input[strIndex];
       strIndex++;
       ++page->capacity;
@@ -117,22 +104,22 @@ void appendToSideBar(string input) {
     col = 0;
   }
   
-  // If string hasn't finished printing, 
-  // recursive call to finish off string
+  // Because of this,
+  // If string hasn't finished printing due to space, 
+  // recursive call to finish off string on a new page
   if (strIndex < input.size()) {
     appendToSideBar(input.substr(strIndex));
   }
-
-  cout << "Returned printing successfully\n";
 }
 
-// Used for debugging
+// Used for debugging; print outs all apge content
+// outside of sidebar
 void printCurrentSideBarContent() {
-  class sideBarPage *page = sideBar.currentPage;
+  sideBarPage page = sideBar.pages[sideBar.currentPageIndex];
 
   for (int row = 0; row < PAGE_ROWS; row++) {
     for (int col = 0; col < PAGE_WIDTH; col++) {
-      cout << page->content[row][col];
+      cout << page.content[row][col];
     }
     cout << "|" << endl;
   }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 const int ROWS = 8;
 const int COLS = 8;
@@ -38,19 +39,16 @@ enum GameMode
 
 class sideBarPage {
   public:
-    int pageNumber;
+    int pageIndex;
     int capacity = 0;
     int maxCapacity = PAGE_ROWS * PAGE_WIDTH;
     char content[PAGE_ROWS][PAGE_WIDTH];
-    class sideBarPage *next = nullptr;
-    class sideBarPage *prev = nullptr;
 };
 
 class sideBar {
   public:
-    int numberOfPages;
-    class sideBarPage *currentPage = nullptr;
-    class sideBarPage *lastPage = nullptr;
+    int currentPageIndex;
+    vector<class sideBarPage> pages;
 };
 
 class gridTile
@@ -77,10 +75,10 @@ public:
 
 void initBoard();
 void initSideBar();
-class sideBarPage *newSideBarPage();
+int newSideBarPage();
 void turnSideBarPage(char direction);
 void doTurnSideBarPage(int offset);
-void initialiseSideBarPage(class sideBarPage *page);
+void initialiseSideBarPageContent(class sideBarPage *page);
 void turnSideBarPage(char direction);
 void doTurnSideBarPage(int offset);
 void appendToSideBar(string input);
