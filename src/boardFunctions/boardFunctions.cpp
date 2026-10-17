@@ -18,7 +18,11 @@ void printBoardLine() {
 
 // Prints the entire game board
 void printGameBoard() {
-  printHeader();
+  if (sideBar.hasError) {
+    printHeaderError();
+  } else {
+    printHeader();
+  }
   printGrid();
   printFooter();
 }
@@ -56,6 +60,34 @@ void printHeader() {
     << sideBar.currentPageIndex + 1 << endl;
 
   printSideBarRowPadding();
+  printHeaderLine();
+}
+
+void printHeaderError() {
+  cout << "\033[2J\n";
+  printSideBarRowPadding();
+  printHeaderLine();
+
+  printSideBarRowPadding();
+  cout << "|     CPP Chess In Terminal     |\n";
+
+  printSideBarRowPadding();
+  printHeaderLine();
+
+  printSideBarRowPadding();
+  cout << "| Lowercase = White             |\n";
+
+  printSideBarRowPadding();
+  cout << "| Uppercase = Black             |\n";
+
+  printSideBarBorderLine();
+  printHeaderLine();
+
+  printErrorMessage();
+  cout << "| Curr Turn : " << currentTurnToString() << "    Page no. | " 
+    << sideBar.currentPageIndex + 1 << endl;
+
+  printSideBarBorderLine();
   printHeaderLine();
 }
 
@@ -168,4 +200,15 @@ void printCurrentSideBarRow(int row) {
   for (int col = 0; col < PAGE_WIDTH; col++) {
     cout << sideBar.pages[sideBar.currentPageIndex].content[row][col];
   }
+}
+
+void printErrorMessage() {
+  cout << "|";
+  for (int col = 0; col < PAGE_WIDTH; col++) {
+    cout << sideBar.errorContent[col];
+  }
+  
+  // When error message has printed next time
+  // board is printed error message should go away
+  sideBar.hasError = false;
 }

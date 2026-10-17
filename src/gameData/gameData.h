@@ -2,10 +2,17 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 const int ROWS = 8;
 const int COLS = 8;
 const int PAGE_ROWS = 15;
 const int PAGE_WIDTH = 31;
+const int TURN_PAGE_LEFT = -1;
+const int TURN_PAGE_RIGHT = 1;
+const string INVALID_PIECE = "Invalid piece selected";
+const string INVALID_ERROR_MESSAGE = "Invalid error message";
+const string ERROR_TEST = "This is a test for errors";
 
 extern class gameData gameData;
 extern class sideBar sideBar;
@@ -49,6 +56,8 @@ class sideBar {
   public:
     int currentPageIndex;
     vector<class sideBarPage> pages;
+    bool hasError = true;
+    char errorContent[PAGE_WIDTH];
 };
 
 class gridTile
@@ -76,10 +85,11 @@ public:
 void initBoard();
 void initSideBar();
 int newSideBarPage();
+void initSideBarPageContent(class sideBarPage *page);
 void turnSideBarPage(char direction);
 void doTurnSideBarPage(int offset);
-void initialiseSideBarPageContent(class sideBarPage *page);
 void turnSideBarPage(char direction);
 void doTurnSideBarPage(int offset);
 void appendToSideBar(string input);
 void printCurrentSideBarContent();
+void addErrorMessage(string input);
