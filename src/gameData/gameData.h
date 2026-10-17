@@ -8,10 +8,15 @@ const int ROWS = 8;
 const int COLS = 8;
 const int PAGE_ROWS = 15;
 const int PAGE_WIDTH = 31;
+const int MISC_PAGE_ROWS = 2;
 const int TURN_PAGE_LEFT = -1;
 const int TURN_PAGE_RIGHT = 1;
+const int FIRST_MISC_ROW = 0;
+const int SECOND_MISC_ROW = 1;
+const int INDEX_OFFSET = 1;
+
 const string INVALID_PIECE = "Invalid piece selected";
-const string INVALID_ERROR_MESSAGE = "Invalid error message";
+const string INVALID_ERROR_MESSAGE = "Invalid message size";
 const string ERROR_TEST = "This is a test for errors";
 
 extern class gameData gameData;
@@ -58,6 +63,7 @@ class sideBar {
     vector<class sideBarPage> pages;
     bool hasError = true;
     char errorContent[PAGE_WIDTH];
+    char miscContent[MISC_PAGE_ROWS][PAGE_WIDTH];
 };
 
 class gridTile
@@ -91,5 +97,10 @@ void doTurnSideBarPage(int offset);
 void turnSideBarPage(char direction);
 void doTurnSideBarPage(int offset);
 void appendToSideBar(string input);
-void printCurrentSideBarContent();
+void dumpCurrentSideBarContent();
 void addErrorMessage(string input);
+void initMiscContent();
+void appendToMiscContentRow(int row, string input);
+void appendBackMiscContentRow(int row, string input);
+string pageStatusToString();
+void dumpMiscContent();

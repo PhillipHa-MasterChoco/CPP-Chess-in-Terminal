@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "gameData.h"
+#include "../boardFunctions/boardFunctions.h"
 
 using namespace std;
 
@@ -22,12 +23,14 @@ void initSideBar() {
   sideBar.currentPageIndex = newSideBarPage();
 
   for (int i = 0; i < 40; i++ ) {
-    cout << "Attempting to add\n";
     appendToSideBar("Hello this is a test!");
   }
 
   addErrorMessage(ERROR_TEST);
 
+  initMiscContent();
+  cout << "Calling dumpMiscContent\n";
+  dumpMiscContent();
   // printCurrentSideBarContent();
 }
 
@@ -123,9 +126,9 @@ void appendToSideBar(string input) {
   }
 }
 
-// Used for debugging; print outs all apge content
-// outside of sidebar
-void printCurrentSideBarContent() {
+// Prints the current sidebar content out into stdout
+// without worrying about formmating; used for debugging
+void dumpCurrentSideBarContent() {
   sideBarPage page = sideBar.pages[sideBar.currentPageIndex];
 
   for (int row = 0; row < PAGE_ROWS; row++) {
@@ -154,5 +157,65 @@ void addErrorMessage(string input) {
     for (int i = input.size(); i < PAGE_WIDTH; i++) {
       sideBar.errorContent[i] = ' ';
     }
+  }
+}
+
+void initMiscContent() {
+  string currentTurn = "Curr turn: ";
+  appendToMiscContentRow(FIRST_MISC_ROW, currentTurn.append(currentTurnToString()));
+  appendToMiscContentRow(SECOND_MISC_ROW, "? for help");
+  appendBackMiscContentRow(SECOND_MISC_ROW, pageStatusToString());
+} 
+
+void appendToMiscContentRow(int row, string input) {
+  cout << "Input size is: " << input.size() << endl;
+  if (input.size() >= PAGE_WIDTH) {
+    addErrorMessage(INVALID_ERROR_MESSAGE);
+    return;
+  }
+
+  for (int i = 0; i < input.size(); i++) {
+    sideBar.miscContent[row][i] = input[i];
+  }
+
+  // Fill the rest of the space with empty spaces for padding
+  if (input.size() <= PAGE_WIDTH) {
+    for (int i = input.size(); i < PAGE_WIDTH; i++) {
+      sideBar.miscContent[row][i] = ' ';
+    }
+  }
+}
+
+// Adds the string starting from the end of the row working backwards
+// stops if it encounters a non empty space
+void appendBackMiscContentRow(int row, string input) {
+  cout << "Input size is: " << input.size() << endl;
+  if (input.size() >= PAGE_WIDTH) {
+    addErrorMessage(INVALID_ERROR_MESSAGE);
+    return;
+  }
+
+  for (int i = input.size() - 1, offset = -1; i >= 0; i--, offset--) {
+    if (sideBar.miscContent[row][PAGE_WIDTH + offset] != ' ') return;
+    sideBar.miscContent[row][PAGE_WIDTH + offset] = input[i];
+  }
+}
+
+string pageStatusToString() {
+  string pageLabel = "Pg: ";
+  string currentPage = to_string(sideBar.currentPageIndex + INDEX_OFFSET);
+  string totalPages = to_string(sideBar.pages.size());
+  return pageLabel.append(currentPage).append("/").append(totalPages);
+}
+
+// Prints the misc content out into stdout without worrying
+// about formmating; used for debugging
+void dumpMiscContent() {
+  cout << "Attempting to print misc content\n";
+  for (int row = 0; row < MISC_PAGE_ROWS; row++) {
+    for (int col = 0; col < PAGE_WIDTH; col++) {
+      cout << sideBar.miscContent[row][col];
+    }
+    cout << endl;
   }
 }
